@@ -1,6 +1,5 @@
 ## 药时曲线系列图[模板](Graphics/TemplateMix.sas)使用说明
 
-
 ```
 dynamic _byval_ _byval2_ _byval3_ XAXISLABEL YAXISLABEL 
 			xtickvaluelist ytickvaluelist ytickvaluelistlog
