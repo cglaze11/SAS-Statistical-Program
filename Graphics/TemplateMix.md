@@ -1,6 +1,6 @@
 ## 药时曲线系列图[模板](Graphics/TemplateMix.sas)使用说明
 
-dynamic variables specification:
+dynamic variables specification :
 ```
 dynamic _byval_ /*proc sgender 的by变量，用于个体图*/
 	_byval2_ /*proc sgender 的by变量，用于个体图，暂时未考虑第2个by变量*/
