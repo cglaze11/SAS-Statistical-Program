@@ -1,4 +1,3 @@
-
 submit "lib=%NRBQUOTE(&lib2.);pgm=%NRBQUOTE(&pgm2.);rtfoutpath=%SUPERQ(rtfpath)";
 	local dsnm="header"
 	local lib=lib
@@ -196,7 +195,6 @@ proc report data=output_break_page headskip split='|' headline missing center no
 		print("No dataset named [header] found.")
 	end
 	
-
 	local addtitle=[[
 data _nullrtf_;
     infile "@rtfoutpath@\&pgm..rtf";
@@ -206,8 +204,6 @@ data _nullrtf_;
 run;
 data _NULL_;
     set _nullrtf_;
-    /*rtftxt=prxchange("s/(\[\[:graph:\]\]+)+(\{\\\*\\bkmkend\s+IDX\})(\[\[:graph:\]\]+)+/$1$2 \pard\qc\fs20\f1\b1 \outlinelevel1{&&&pgm.}{\par}\pard $3/",-1,rtftxt);
-    rtftxt=prxchange("s/(\[\[:graph:\]\]+)(\{\\\*\\bkmkend\s+IDX\d+\})(\[\[:graph:\]\]+)/$1$2 \pard\qc\fs20\f1\b1 {&&&pgm.(Continued)}{\par}\pard $3/",-1,rtftxt);*/
 	rtftxt=prxchange("s/(\{\\\*\\bkmkend\s+IDX\})/$1 \pard\qc\fs20\f1\b1 \outlinelevel1{&&&pgm.}{\par}\pard/",-1,rtftxt);
     rtftxt=prxchange("s/(\{\\\*\\bkmkend\s+IDX\d+\})/$1 \pard\qc\fs20\f1\b1 {&&&pgm.(Continued)}{\par}\pard/",-1,rtftxt);
     file "@rtfoutpath@\&pgm..rtf" encoding='ms-936';
