@@ -1,5 +1,5 @@
 
-# 基于Metadata的TFL代码中proc report模块生成
+# TFL代码中proc report模块生成
 
 1. 汇总TFL shell中的Tables，Listings的名称、标题、脚注，并预设纸张方向与每页行数。以Excel形式储存元数据。
 2. 设定ODS RTF的样式、属性。其中`bodytitle`或`nobodytitle`影响标题脚注的在输出中位置，较为关键。
