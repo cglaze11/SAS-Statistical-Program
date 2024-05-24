@@ -1,9 +1,7 @@
 
 %GLOBAL SAS_PATH _WPATH;
 
-/* %LET SAS_PATH=%QSUBSTR(%SYSGET(SAS_EXECFILEPATH),1,%EVAL(%LENGTH(%SYSGET(SAS_EXECFILEPATH))-%LENGTH(%SYSGET(SAS_EXECFILENAME))-1)); */
-/* %LET _WPATH=%QSUBSTR(%SYSGET(SAS_EXECFILEPATH),1,%EVAL(%LENGTH(&SAS_PATH.)-%LENGTH(%SCAN(&SAS_PATH.,-1,\))-%LENGTH(%SCAN(&SAS_PATH.,-2,\))-2)); */
-/* %put &_wpath; */
+/*Some macro definitions*/
 %let SPONSOR =%str(Cglazey11);
 %let gvStudy = %str(Header and footnote automated generating);
 
@@ -57,3 +55,29 @@ proc template;
     end;
 run;
 
+
+*===================================================================;
+* TFL information definitions
+*===================================================================;
+
+%LET SAS_PATH=%QSUBSTR(%SYSGET(SAS_EXECFILEPATH),1,%EVAL(%LENGTH(%SYSGET(SAS_EXECFILEPATH))-%LENGTH(%SYSGET(SAS_EXECFILENAME))-1)); 
+
+/*TFL list datasets*/
+proc import datafile="&sas_path./header_footnote.xlsx" out=tfl dbms=xlsx replace;
+	sheet="TFL";
+run;
+
+/*Header datasets*/
+proc import datafile="&sas_path./header_footnote.xlsx" out=type dbms=xlsx replace;
+	sheet="TYPE";
+run;
+
+/*TFL datasets path*/
+libname tfl "&sas_path./data";
+
+%inc "&sas_path.\luareport.sas";
+options nomprint;
+
+%luareport(libname=tfl,tflmeta=tfl,headersrc=type,saspath=&sas_path.\report_part,rtfpath='&sas_path.\\report_part',runnow=);
+
+options mprint;
