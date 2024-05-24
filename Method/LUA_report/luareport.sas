@@ -1,20 +1,3 @@
-
-/* For SAS Studio */
-/*%LET SAS_PATH=%QSUBSTR(&_SASPROGRAMFILE,1,%LENGTH(&_SASPROGRAMFILE)-%LENGTH(%SCAN(&_SASPROGRAMFILE,-1,/))-1);*/
-/* For SAS Local */
- %LET SAS_PATH=%QSUBSTR(%SYSGET(SAS_EXECFILEPATH),1,%EVAL(%LENGTH(%SYSGET(SAS_EXECFILEPATH))-%LENGTH(%SYSGET(SAS_EXECFILENAME))-1)); 
-
-proc import datafile="&sas_path./header_footnote.xlsx" out=tfl dbms=xlsx replace;
-	sheet="TFL";
-run;
-
-proc import datafile="&sas_path./header_footnote.xlsx" out=type dbms=xlsx replace;
-	sheet="TYPE";
-run;
-
-libname tfl "&sas_path./data";
-
-options nomprint;
 %macro luareport(libname=,tflmeta=tfl,headersrc=type,saspath=,rtfpath=,runnow=);
 
 data _null_;
@@ -102,8 +85,3 @@ proc printto;run;
 options notes source source2 date details number;
 %end;
 %mend luareport;
-
-%luareport(libname=tfl,tflmeta=tfl,headersrc=type,saspath=&sas_path.\report_part,rtfpath='&sas_path.\\report_part',runnow=);
-
-options mprint;
-
